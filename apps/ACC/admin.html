@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ashtead Match Centre — Admin</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body class="admin-body">
+
+<div id="authGate" class="auth-gate">
+    <form id="authForm" class="auth-form">
+        <h1>Match Centre Admin</h1>
+        <p>Enter the admin password to continue.</p>
+        <input id="authPassword" type="password" placeholder="Password" autocomplete="current-password" autofocus>
+        <button type="submit">Unlock</button>
+        <p id="authError" class="auth-error"></p>
+    </form>
+</div>
+
+<div id="adminPage" class="admin-page">
+
+    <header class="admin-header">
+        <h1>Match Centre Admin</h1>
+        <button id="lockButton" type="button" class="admin-link admin-lock-button">Lock</button>
+    </header>
+
+    <p class="admin-note">
+        Settings save to the Match Centre server, so they apply everywhere —
+        update them here from your phone or laptop and they'll appear on
+        the TV automatically within 30 seconds, no need to be on the same
+        device.
+    </p>
+
+    <section class="admin-section">
+        <h2>Live Scores (Play-Cricket)</h2>
+        <p class="admin-hint">
+            Add a Play-Cricket Match ID to any of the 4 slots to pull live
+            scores automatically every 5 seconds. A slot with no Match ID
+            will just show its team name until one is added.
+        </p>
+    </section>
+
+    <details class="admin-section admin-advanced">
+        <summary>Advanced: Match Centre server URL</summary>
+        <p class="admin-hint">
+            Only needed if you've redeployed the Cloudflare Worker to a new
+            address — leave this blank to use the default one. This setting
+            is local to this browser only (unlike everything else on this
+            page, which is shared).
+        </p>
+        <div class="admin-grid">
+            <label>Match Centre Server URL
+                <input id="scorecardProxyUrl" type="text" placeholder="https://ashtead-scorecard-proxy.aculhane94.workers.dev">
+            </label>
+        </div>
+    </details>
+
+    <section class="admin-section">
+        <h2>Featured Match</h2>
+        <p class="admin-hint">
+            Pick which of the 4 fixture slots below gets the big featured
+            panel. If that match is being live streamed on YouTube, turn
+            the toggle on and paste in the video ID (the part after
+            "v=" or "youtu.be/" in the video's link) — the Match Centre
+            will show the video and hide its own score/batting overlay.
+            Turn it off to show the live scorecard details instead.
+        </p>
+        <div class="admin-grid">
+            <label>Featured Slot
+                <select id="featuredSlotSelect">
+                    <option value="slot1">Slot 1</option>
+                    <option value="slot2">Slot 2</option>
+                    <option value="slot3">Slot 3</option>
+                    <option value="slot4">Slot 4</option>
+                </select>
+            </label>
+            <label class="admin-checkbox-label">
+                <input id="featuredIsLiveStream" type="checkbox">
+                This match is live streamed
+            </label>
+            <label>YouTube Video ID
+                <input id="youtubeUrl" type="text" placeholder="e.g. gnf8aO23A68">
+            </label>
+        </div>
+    </section>
+
+    <section class="admin-section">
+        <h2>Slot 1</h2>
+        <div class="admin-grid">
+            <label>Team Name
+                <input id="slot1TeamName" type="text">
+            </label>
+            <label>Opponent
+                <input id="slot1Opponent" type="text">
+            </label>
+            <label>Play-Cricket Match ID
+                <input id="slot1MatchId" type="text">
+            </label>
+            <label>Fixture Type Label
+                <input id="slot1FixtureType" type="text">
+            </label>
+        </div>
+    </section>
+
+    <section class="admin-section">
+        <h2>Slot 2</h2>
+        <div class="admin-grid">
+            <label>Team Name
+                <input id="slot2TeamName" type="text">
+            </label>
+            <label>Opponent
+                <input id="slot2Opponent" type="text">
+            </label>
+            <label>Play-Cricket Match ID
+                <input id="slot2MatchId" type="text">
+            </label>
+            <label>Fixture Type Label
+                <input id="slot2FixtureType" type="text">
+            </label>
+        </div>
+    </section>
+
+    <section class="admin-section">
+        <h2>Slot 3</h2>
+        <div class="admin-grid">
+            <label>Team Name
+                <input id="slot3TeamName" type="text">
+            </label>
+            <label>Opponent
+                <input id="slot3Opponent" type="text">
+            </label>
+            <label>Play-Cricket Match ID
+                <input id="slot3MatchId" type="text">
+            </label>
+            <label>Fixture Type Label
+                <input id="slot3FixtureType" type="text">
+            </label>
+        </div>
+    </section>
+
+    <section class="admin-section">
+        <h2>Slot 4</h2>
+        <div class="admin-grid">
+            <label>Team Name
+                <input id="slot4TeamName" type="text">
+            </label>
+            <label>Opponent
+                <input id="slot4Opponent" type="text">
+            </label>
+            <label>Play-Cricket Match ID
+                <input id="slot4MatchId" type="text">
+            </label>
+            <label>Fixture Type Label
+                <input id="slot4FixtureType" type="text">
+            </label>
+        </div>
+    </section>
+
+    <section class="admin-section">
+        <h2>Club News</h2>
+        <p class="admin-hint">
+            Shown one at a time, slideshow-style, across the bottom of the
+            Match Centre. One message per line.
+        </p>
+        <div class="admin-grid">
+            <label>Club Announcements (one per line)
+                <textarea id="clubAnnouncements" rows="4" placeholder="Bar open all day&#10;BBQ from 12:30&#10;Junior training Sunday 9:30"></textarea>
+            </label>
+        </div>
+    </section>
+
+    <section class="admin-section">
+        <h2>Club Sponsors</h2>
+        <p class="admin-hint">
+            Shown one at a time, slideshow-style — upload one or more
+            images and set how many seconds each one displays before
+            moving to the next. Leave empty to hide the sponsor panel
+            entirely (club news will take the full width instead).
+            Uploaded images are stored on the Match Centre server, so keep
+            them reasonably small (a few hundred KB each).
+        </p>
+        <div class="sponsor-manager">
+            <div id="sponsorList" class="sponsor-list"></div>
+            <label class="admin-upload-label">
+                + Add Sponsor Image(s)
+                <input id="sponsorFileInput" type="file" accept="image/*" multiple hidden>
+            </label>
+        </div>
+    </section>
+
+    <div class="admin-actions">
+        <button id="saveButton" type="button">Save Settings</button>
+        <a class="admin-link" href="tv.html" target="_blank">Open Match Centre &rarr;</a>
+        <span id="statusMessage" class="admin-status"></span>
+    </div>
+
+</div>
+
+<script src="admin.js"></script>
+
+</body>
+
+</html>
